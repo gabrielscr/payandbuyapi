@@ -17,6 +17,17 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  http:
+  cached_network_image:
+  image_picker:
+  mobx:
+  mobx_codegen:
+  flutter_mobx:
+  flutter_modular:
+  badges:
+  carousel_pro:
+  google_fonts:
+  build_runner:
   flutter:
     sdk: flutter
 
@@ -70,3 +81,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  # scripts:
+  #   mobx: flutter pub run build_runner watch --delete-conflicting-outputs
