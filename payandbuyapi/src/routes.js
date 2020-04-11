@@ -13,8 +13,8 @@ routes.put("/tasks/:id", TaskController.update);
 routes.delete("/tasks/:id", TaskController.destroy);
 
 /* User */
-routes.post("/signin", AuthController.signin);
-routes.post("/signup", AuthController.signup);
+routes.post("/logar", AuthController.signin);
+routes.post("/criarConta", AuthController.signup);
 routes.get("/logout", AuthController.logout);
 
 export default routes;

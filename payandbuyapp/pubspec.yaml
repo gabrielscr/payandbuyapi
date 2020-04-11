@@ -28,6 +28,8 @@ dependencies:
   carousel_pro:
   google_fonts:
   build_runner:
+  shared_preferences:
+  flutter_icons:  
   flutter:
     sdk: flutter
 

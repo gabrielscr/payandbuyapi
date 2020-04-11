@@ -9,7 +9,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    password: {
+    senha: {
         type: String,
         required: true
     },
@@ -20,12 +20,13 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.encryptPassword = async (password) => {
+    console.log(password);
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
 };
 
 UserSchema.methods.validatePassword = function (password) {
-    return bcrypt.compare(password, this.password);
+    return bcrypt.compare(password, this.senha);
 };
 
 export default model("Usuario", UserSchema);

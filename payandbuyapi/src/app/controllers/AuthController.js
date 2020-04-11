@@ -4,14 +4,16 @@ import jwt from "jsonwebtoken";
 class AuthController {
 
     async signup(req, res) {
-        console.log("CARALHO");
         try {
-            const { username, email, password } = req.body;
+            const { username, email, senha } = req.body;
+
+            console.log("body");
+            console.log(req.body);
 
             const user = new User({
                 username,
                 email,
-                password
+                senha
             });
 
             const verificarSeExiste = await User.findOne({ email: req.body.email });
@@ -20,7 +22,7 @@ class AuthController {
                 return res.status(500).send("Usuário já existe.");
             }
 
-            user.password = await user.encryptPassword(password);
+            user.senha = await user.encryptPassword(senha);
 
             await user.save();
 
@@ -42,11 +44,11 @@ class AuthController {
             if (!user) {
                 return res.status(404).send("The email doesn't exists")
             }
-            const validPassword = await user.validatePassword(req.body.password, user.password);
+            const validPassword = await user.validatePassword(req.body.senha, user.senha);
             if (!validPassword) {
                 return res.status(401).send({ auth: false, token: null });
             }
-            const token = jwt.sign({ id: user._id }, config.secret, {
+            const token = jwt.sign({ id: user._id }, "mysecrettoken", {
                 expiresIn: '24h'
             });
             res.status(200).json({ auth: true, token });
