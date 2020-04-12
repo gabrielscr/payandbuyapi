@@ -3,23 +3,24 @@ import 'dart:convert';
 
 class Api {
   final String api = 'http://192.168.15.13:3000';
-  final client = http.Client();
 
   get(String url, Map query) async {
-    url += _getUrlQuery(query);
-
-    var response = await client.get(_getApiUrl(url), headers: obterHeaders());
+    var response =
+        await http.get(api + url, headers: {'Accept': 'application/json'});
 
     if (response != null && response.body.isNotEmpty)
       return json.decode(response.body);
   }
 
   post(String url, Map body) async {
-    return await client.post(api + url, body: body);
+    var response = await http.post(api + url,
+        body: json.encode(body), headers: {'Accept': 'application/json'});
+
+    return response;
   }
 
   put(String url, Map body) async {
-    var response = await client.put(_getApiUrl(url),
+    var response = await http.put(_getApiUrl(url),
         body: jsonEncode(body), headers: obterHeaders());
 
     if (response != null && response.body.isNotEmpty)
@@ -27,10 +28,7 @@ class Api {
   }
 
   delete(String url, Map body) async {
-    url += _getUrlQuery(body);
-
-    var response =
-        await client.delete(_getApiUrl(url), headers: obterHeaders());
+    var response = await http.delete(api + url, headers: obterHeaders());
 
     if (response != null && response.body.isNotEmpty)
       return json.decode(response.body);
@@ -55,25 +53,25 @@ class Api {
   // }
 
   obterHeaders() {
-    return {'Accept': 'application/json', 'Content-Type': 'application/json'};
+    return {'Accept': 'application/json'};
   }
 
-  _getUrlQuery(Map query) {
-    var queryUrl = '';
+  // _getUrlQuery(Map query) {
+  //   var queryUrl = '';
 
-    for (var item in query.keys) {
-      if (item == null) continue;
+  //   for (var item in query.keys) {
+  //     if (item == null) continue;
 
-      if (queryUrl.indexOf('?') < 0)
-        queryUrl += '?';
-      else
-        queryUrl += '&';
+  //     if (queryUrl.indexOf('?') < 0)
+  //       queryUrl += '?';
+  //     else
+  //       queryUrl += '&';
 
-      queryUrl += item + '=' + query[item].toString();
-    }
+  //     queryUrl += item + '=' + query[item].toString();
+  //   }
 
-    return queryUrl;
-  }
+  //   return queryUrl;
+  // }
 
   String _getApiUrl(String url) {
     return Uri.decodeFull(Uri.http(api, url).toString());

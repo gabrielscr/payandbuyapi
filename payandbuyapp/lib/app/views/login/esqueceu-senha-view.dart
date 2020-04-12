@@ -4,12 +4,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/controllers/login-controller.dart';
 import 'package:payandbuyapp/app/widgets/loader.dart';
 
-class LoginView extends StatefulWidget {
+class RecuperarSenhaView extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends ModularState<LoginView, LoginController> {
+class _LoginState extends ModularState<RecuperarSenhaView, LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,17 +59,6 @@ class _LoginState extends ModularState<LoginView, LoginController> {
                                       controller.validateEmail);
                                 },
                               ),
-                              Observer(
-                                builder: (_) {
-                                  return buildTextFormField(
-                                      "Senha",
-                                      controller.changeSenha,
-                                      true,
-                                      Icon(Icons.lock, color: Colors.grey),
-                                      TextInputType.text,
-                                      controller.validatePassword);
-                                },
-                              ),
                             ],
                           ),
                         ),
@@ -87,7 +76,7 @@ class _LoginState extends ModularState<LoginView, LoginController> {
                                   child: controller.loading
                                       ? Loader()
                                       : Text(
-                                          "LOGAR",
+                                          "RECUPERAR",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold),
@@ -101,22 +90,14 @@ class _LoginState extends ModularState<LoginView, LoginController> {
                         SizedBox(
                           height: 10,
                         ),
-                        FlatButton(
-                          onPressed: () =>
-                              Modular.to.pushReplacementNamed('/criar-conta'),
-                          child: Text(
-                            "Não possui uma conta? Crie agora!",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ),
                         SizedBox(
                           height: 20,
                         ),
                         FlatButton(
-                          onPressed: () => Modular.to
-                              .pushReplacementNamed('/esqueceu-senha'),
+                          onPressed: () =>
+                              Modular.to.pushReplacementNamed('/login'),
                           child: Text(
-                            "Esqueceu sua senha?",
+                            "Voltar",
                             style: TextStyle(color: Colors.grey),
                           ),
                         ),

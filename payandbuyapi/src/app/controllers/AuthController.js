@@ -42,7 +42,7 @@ class AuthController {
         try {
             const user = await User.findOne({ email: req.body.email })
             if (!user) {
-                return res.status(404).send("The email doesn't exists")
+                return res.status(404).send('O e-mail não existe.');
             }
             const validPassword = await user.validatePassword(req.body.senha, user.senha);
             if (!validPassword) {
@@ -54,7 +54,7 @@ class AuthController {
             res.status(200).json({ auth: true, token });
         } catch (e) {
             console.log(e)
-            res.status(500).send('There was a problem signin');
+            res.status(500).send('Ocorreu um problema ao se logar.');
         }
     }
 
