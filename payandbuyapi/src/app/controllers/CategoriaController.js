@@ -8,6 +8,7 @@ class CategoriaController {
     }
 
     async obter(req, res) {
+        console.log(req.params);
         const { id } = req.params;
         const categoria = await Categoria.findById(id);
 

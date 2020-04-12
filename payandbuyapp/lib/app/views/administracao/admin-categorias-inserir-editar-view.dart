@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 import 'package:payandbuyapp/app/controllers/administracao/admin-categorias-controller.dart';
 import 'package:payandbuyapp/app/widgets/custom-text.dart';
-import 'package:payandbuyapp/domain/categoria.dart';
+import 'package:payandbuyapp/app/widgets/loader.dart';
 
 class AdminCategoriasInserirEditar extends StatefulWidget {
   final String categoriaId;
@@ -26,13 +25,14 @@ class _AdminCategoriasInserirEditarState extends ModularState<
     super.initState();
   }
 
+  bool get inserindo => widget.categoriaId == null;
+
   carregar() async {
-    if (widget.categoriaId != null)
-      await controller.obterCategoria(widget.categoriaId);
+    if (!inserindo) await controller.obterCategoria(widget.categoriaId);
   }
 
   salvar() async {
-    if (widget.categoriaId == null)
+    if (inserindo)
       await controller.inserirCategoria();
     else
       await controller.editarCategoria();
@@ -45,17 +45,20 @@ class _AdminCategoriasInserirEditarState extends ModularState<
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: CustomText(text: 'Inserir categoria', fontSize: null),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Ionicons.ios_return_right),
-              onPressed: () {
-                Modular.to.pushReplacementNamed('/categorias-admin');
-              })
-        ],
+        title: CustomText(
+            text: inserindo ? 'Inserir categoria' : 'Editar categoria',
+            fontSize: null),
+        leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            onPressed: () {
+              Modular.to.pushReplacementNamed('/categorias-admin');
+            }),
+        actions: <Widget>[],
       ),
       body: Observer(builder: (_) {
         var categoria = controller.categoria;
+
+        if (categoria.descricao == null && !inserindo) return Loader();
 
         return Container(
           child: ListView(children: [
@@ -64,6 +67,7 @@ class _AdminCategoriasInserirEditarState extends ModularState<
               decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: Colors.black))),
               child: TextFormField(
+                initialValue: categoria.descricao ?? "",
                 onChanged: (v) => categoria.descricao = v,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.description),

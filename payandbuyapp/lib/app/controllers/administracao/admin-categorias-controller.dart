@@ -35,7 +35,7 @@ abstract class _AdminCategoriasControllerBase with Store {
 
   @action
   obterCategoria(String categoriaId) async {
-    categoria = await categoriaService.obter({'Id': categoriaId});
+    categoria = await categoriaService.obter(categoriaId);
 
     return categoria;
   }
@@ -47,6 +47,12 @@ abstract class _AdminCategoriasControllerBase with Store {
 
   @action
   editarCategoria() async {
-    return await categoriaService.editar(categoria.toJson());
+    return await categoriaService.editar(categoria.toJson(), categoria.id);
+  }
+
+  @action
+  excluirCategoria(categoriaId) async {
+    await categoriaService.excluir(categoriaId);
+    await listarCategorias();
   }
 }

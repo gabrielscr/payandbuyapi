@@ -20,7 +20,7 @@ routes.get("/logout", AuthController.logout);
 
 /* Categorias */
 routes.get("/categorias", CategoriaController.listar);
-routes.get("/categoria/:id", CategoriaController.obter);
+routes.get("/categorias/:id", CategoriaController.obter);
 routes.post("/categoria/inserir", CategoriaController.inserir);
 routes.put("/categoria/editar/:id", CategoriaController.editar);
 routes.delete("/categoria/excluir/:id", CategoriaController.excluir);

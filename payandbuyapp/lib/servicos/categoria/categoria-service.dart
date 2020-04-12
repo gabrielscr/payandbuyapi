@@ -1,5 +1,3 @@
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:http/http.dart';
 import 'package:payandbuyapp/domain/categoria.dart';
 import 'package:payandbuyapp/servicos/api/api-service.dart';
 
@@ -12,12 +10,12 @@ class CategoriaService {
     return response;
   }
 
-  editar(Map body) async {
-    return await apiService.put('Categoria/EditarCategoria', body);
+  editar(Map body, String id) async {
+    return await apiService.put('/categoria/editar/', body, id);
   }
 
-  obter(Map query) async {
-    var response = await apiService.get('/categoria/', query);
+  obter(String id) async {
+    var response = await apiService.get('/categorias/', id);
 
     Categoria categoria = Categoria.fromJson(response);
 
@@ -25,7 +23,7 @@ class CategoriaService {
   }
 
   Future<List<Categoria>> listar(Map query) async {
-    var response = await apiService.get('/categorias', query);
+    var response = await apiService.list('/categorias', query);
     List<Categoria> lista = [];
 
     for (var json in (response) as List) {
@@ -37,7 +35,7 @@ class CategoriaService {
     return lista;
   }
 
-  excluir(Map body) async {
-    return await apiService.delete('Categoria/ExcluirCategoria', body);
+  excluir(String id) async {
+    return await apiService.delete('/categoria/excluir/', id);
   }
 }

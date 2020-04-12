@@ -30,7 +30,8 @@ dependencies:
   build_runner:
   shared_preferences:
   flutter_icons:
-  dio:  
+  dio:
+  intl:  
   flutter:
     sdk: flutter
 

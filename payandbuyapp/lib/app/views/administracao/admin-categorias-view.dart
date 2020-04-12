@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/controllers/administracao/admin-categorias-controller.dart';
+import 'package:payandbuyapp/app/utils/utils.dart';
 import 'package:payandbuyapp/app/widgets/custom-text.dart';
 import 'package:payandbuyapp/app/widgets/loader.dart';
 
@@ -42,13 +43,11 @@ class _AdminCategoriasViewState extends State<AdminCategoriasView> {
     return AppBar(
       centerTitle: true,
       title: CustomText(text: 'Categorias', fontSize: null),
-      actions: <Widget>[
-        IconButton(
-            icon: Icon(Ionicons.ios_return_left),
-            onPressed: () {
-              Modular.to.pushReplacementNamed('/home-admin');
-            })
-      ],
+      leading: IconButton(
+          icon: Icon(Icons.chevron_left),
+          onPressed: () {
+            Modular.to.pushReplacementNamed('/home-admin');
+          }),
     );
   }
 
@@ -67,11 +66,71 @@ class _AdminCategoriasViewState extends State<AdminCategoriasView> {
           itemCount: categorias.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title:
-                  CustomText(text: categorias[index].descricao, fontSize: null),
+              title: CustomText(
+                text: categorias[index].descricao,
+                fontSize: null,
+                fontWeight: FontWeight.bold,
+              ),
+              subtitle: CustomText(
+                  text:
+                      'Criado em: ${formatarData(categorias[index].criadoEm)}',
+                  fontSize: null),
+              trailing: IconButton(
+                  icon: Icon(
+                    Ionicons.ios_trash,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    Modular.to.showDialog(
+                        child: renderAlertaExcluir(categorias[index].id));
+                  }),
+              onTap: () {
+                Modular.to.pushReplacementNamed(
+                    '/categorias-admin-inserir-editar',
+                    arguments: categorias[index].id);
+              },
             );
           });
     });
+  }
+
+  Widget renderAlertaExcluir(String categoriaId) {
+    return AlertDialog(
+      title: CustomText(
+        text: 'Deseja realmente excluir?',
+        fontSize: null,
+      ),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            CustomText(text: 'Esta ação não pode ser desfeita', fontSize: null)
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        FlatButton(
+          child: CustomText(
+            text: 'Não',
+            fontSize: null,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Modular.to.pop();
+          },
+        ),
+        FlatButton(
+          child: CustomText(
+            text: 'Sim',
+            fontSize: null,
+            color: Colors.red,
+          ),
+          onPressed: () async {
+            await controller.excluirCategoria(categoriaId);
+            Modular.to.pop();
+          },
+        ),
+      ],
+    );
   }
 
   Widget renderListaVazia() {

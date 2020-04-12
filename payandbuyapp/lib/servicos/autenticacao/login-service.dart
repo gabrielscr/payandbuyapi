@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:http/http.dart';
 import 'package:payandbuyapp/app/widgets/custom-alert.dart';
 import 'package:payandbuyapp/servicos/api/api-service.dart';
 import 'package:shared_preferences/shared_preferences.dart';

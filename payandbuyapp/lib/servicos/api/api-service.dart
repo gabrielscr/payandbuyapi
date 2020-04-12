@@ -5,8 +5,17 @@ class Api {
   final String api = '192.168.15.13:3000';
   Dio dio = new Dio();
 
-  get(String url, Map query) async {
+  list(String url, Map query) async {
+    url += getUrlQuery(query);
+
     var response = await dio.get(getApiUrl(url),
+        options: Options(headers: obterHeaders()));
+
+    if (response != null && response.data.isNotEmpty) return response.data;
+  }
+
+  get(String url, String query) async {
+    var response = await dio.get(getApiUrl(url) + query,
         options: Options(headers: obterHeaders()));
 
     if (response != null && response.data.isNotEmpty) return response.data;
@@ -18,18 +27,22 @@ class Api {
     if (response != null) return response;
   }
 
-  put(String url, Map body) async {
-    var response = await dio.put(getApiUrl(url),
-        data: jsonEncode(body), options: Options(headers: obterHeaders()));
+  put(String url, Map body, String id) async {
+    var urlFinal = getApiUrl(url) + id;
 
-    if (response != null && response.data.isNotEmpty) return response.data;
+    var response = await dio.put(urlFinal, data: body, options: Options(headers: obterHeaders()));
+
+    if (response != null && response.data.isNotEmpty) 
+        return response.data;
   }
 
-  delete(String url, Map body) async {
-    var response = await dio.delete(getApiUrl(url),
-        options: Options(headers: obterHeaders()));
+  delete(String url, String id) async {
+    var urlFinal = getApiUrl(url) + id;
 
-    if (response != null && response.data.isNotEmpty) return response.data;
+    var response =  await dio.delete(urlFinal, options: Options(headers: obterHeaders()));
+
+    if (response != null && response.data.isNotEmpty) 
+        return response.data;
   }
 
   // getSessionPagSeguro() async {
@@ -49,6 +62,23 @@ class Api {
 
   //   return teste;
   // }
+
+  getUrlQuery(Map query) {
+    var queryUrl = '';
+
+    for (var item in query.keys) {
+      if (item == null) continue;
+
+      // if (queryUrl.indexOf('?') < 0)
+      //   queryUrl += '?';
+      // else
+      //   queryUrl += '&';
+
+      queryUrl += item + '=' + query[item].toString();
+    }
+
+    return queryUrl;
+  }
 
   obterHeaders() {
     return {'Accept': 'application/json'};

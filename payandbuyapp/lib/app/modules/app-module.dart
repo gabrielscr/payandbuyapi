@@ -38,7 +38,9 @@ class AppModule extends MainModule {
         Router('/home-admin', child: (_, args) => AdminHomeView()),
         Router('/categorias-admin', child: (_, args) => AdminCategoriasView()),
         Router('/categorias-admin-inserir-editar',
-            child: (_, args) => AdminCategoriasInserirEditar()),
+            child: (_, args) => AdminCategoriasInserirEditar(
+                  categoriaId: args.data,
+                )),
       ];
 
   static Inject get to => Inject.of();
