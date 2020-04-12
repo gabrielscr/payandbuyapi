@@ -1,22 +1,23 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:payandbuyapp/app/controllers/home-contorller.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
   @override
   _BottomNavBarWidgetState createState() => _BottomNavBarWidgetState();
 }
 
-class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
+class _BottomNavBarWidgetState
+    extends ModularState<BottomNavBarWidget, HomeController> {
   // var carrinhoController = Modular.get<CarrinhoController>();
 
   @override
   Widget build(BuildContext context) {
     void _onItemTapped(int index) {
-      // controller.currentIndex = index;
-      // controller.navigateToScreens(index);
+      controller.currentIndex = index;
+      controller.navigateToScreens(index);
     }
 
     return Observer(builder: (_) {
@@ -24,6 +25,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
         buildBottomNavigationBarItem(Icon(Ionicons.ios_home)),
         buildBottomNavigationBarItem(Icon(Ionicons.ios_list)),
         buildBottomNavigationBarItem(Icon(Ionicons.ios_heart_empty)),
+        buildBottomNavigationBarItem(Icon(Ionicons.ios_cart)),
         // buildBottomNavigationBarItem(
         //   carrinhoController.itens.length > 0
         //       ? Badge(
@@ -41,9 +43,9 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
       ];
       return BottomNavigationBar(
         items: items,
-        // currentIndex: controller.currentIndex,
-        // selectedIconTheme: IconThemeData(color: Colors.deepPurpleAccent),
-        // selectedLabelStyle: TextStyle(color: Colors.black),
+        currentIndex: controller.currentIndex,
+        selectedIconTheme: IconThemeData(color: Colors.deepPurpleAccent),
+        selectedLabelStyle: TextStyle(color: Colors.black),
         onTap: _onItemTapped,
         selectedItemColor: Colors.deepPurpleAccent,
         unselectedItemColor: Colors.black,

@@ -65,30 +65,33 @@ class _AdminCategoriasViewState extends State<AdminCategoriasView> {
       return ListView.builder(
           itemCount: categorias.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: CustomText(
-                text: categorias[index].descricao,
-                fontSize: null,
-                fontWeight: FontWeight.bold,
+            return Card(
+              borderOnForeground: true,
+              child: ListTile(
+                title: CustomText(
+                  text: categorias[index].descricao,
+                  fontSize: null,
+                  fontWeight: FontWeight.bold,
+                ),
+                subtitle: CustomText(
+                    text:
+                        'Criado em: ${formatarData(categorias[index].criadoEm)}',
+                    fontSize: null),
+                trailing: IconButton(
+                    icon: Icon(
+                      Ionicons.ios_trash,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      Modular.to.showDialog(
+                          child: renderAlertaExcluir(categorias[index].id));
+                    }),
+                onTap: () {
+                  Modular.to.pushReplacementNamed(
+                      '/categorias-admin-inserir-editar',
+                      arguments: categorias[index].id);
+                },
               ),
-              subtitle: CustomText(
-                  text:
-                      'Criado em: ${formatarData(categorias[index].criadoEm)}',
-                  fontSize: null),
-              trailing: IconButton(
-                  icon: Icon(
-                    Ionicons.ios_trash,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    Modular.to.showDialog(
-                        child: renderAlertaExcluir(categorias[index].id));
-                  }),
-              onTap: () {
-                Modular.to.pushReplacementNamed(
-                    '/categorias-admin-inserir-editar',
-                    arguments: categorias[index].id);
-              },
             );
           });
     });

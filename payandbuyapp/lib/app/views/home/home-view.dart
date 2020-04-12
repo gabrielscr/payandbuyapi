@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/controllers/login-controller.dart';
-import 'package:payandbuyapp/app/widgets/custom-bottom-nav-bar.dart';
-import 'package:payandbuyapp/app/widgets/custom-text.dart';
+import 'package:payandbuyapp/app/views/categorias/categorias-view.dart';
 import 'package:payandbuyapp/app/widgets/menu.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,21 +16,30 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Menu(),
-      appBar: AppBar(
-        title: CustomText(text: 'Pay And Buy', fontSize: null),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Ionicons.ios_log_out),
-              onPressed: () => loginController.logoff())
-        ],
-      ),
       body: Container(
-        child: Center(
-          child: CustomText(text: 'AAA', fontSize: null),
-        ),
-      ),
-      bottomNavigationBar: BottomNavBarWidget(),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height: 90,
+                  child: CategoriaListar(),
+                ),
+              ),
+              Expanded(flex: 2, child: Container(color: Colors.black)),
+              Expanded(
+                  flex: 4,
+                  child: Container(
+                    color: Colors.red,
+                    height: 300,
+                  ))
+            ],
+          )),
     );
   }
 }

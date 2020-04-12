@@ -72,7 +72,21 @@ class _AdminCategoriasInserirEditarState extends ModularState<
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.description),
                     border: InputBorder.none,
-                    hintText: 'Descrição',
+                    labelText: 'Descrição',
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.black))),
+              child: TextFormField(
+                initialValue: categoria.foto ?? "",
+                onChanged: (v) => categoria.foto = v,
+                decoration: InputDecoration(
+                    labelText: 'Url da foto',
+                    prefixIcon: Icon(MaterialCommunityIcons.web),
+                    border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey[400])),
               ),
             )

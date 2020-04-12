@@ -73,6 +73,14 @@ mixin _$AdminCategoriasController on _AdminCategoriasControllerBase, Store {
     return _$editarCategoriaAsyncAction.run(() => super.editarCategoria());
   }
 
+  final _$excluirCategoriaAsyncAction = AsyncAction('excluirCategoria');
+
+  @override
+  Future excluirCategoria(dynamic categoriaId) {
+    return _$excluirCategoriaAsyncAction
+        .run(() => super.excluirCategoria(categoriaId));
+  }
+
   final _$_AdminCategoriasControllerBaseActionController =
       ActionController(name: '_AdminCategoriasControllerBase');
 
