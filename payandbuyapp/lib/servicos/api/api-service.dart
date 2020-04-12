@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class Api {
   final String api = '192.168.15.13:3000';
@@ -7,41 +8,61 @@ class Api {
   list(String url, Map query) async {
     url += getUrlQuery(query);
 
-    var response = await dio.get(getApiUrl(url),
-        options: Options(headers: obterHeaders()));
+    try {
+      var response = await dio.get(getApiUrl(url),
+          options: Options(headers: obterHeaders()));
 
-    if (response != null && response.data.isNotEmpty) return response.data;
+      if (response != null && response.data.isNotEmpty) return response.data;
+    } catch (e) {
+      Modular.to.pushReplacementNamed('/sem-conexao');
+    }
   }
 
   get(String url, String query) async {
-    var response = await dio.get(getApiUrl(url) + query,
-        options: Options(headers: obterHeaders()));
+    try {
+      var response = await dio.get(getApiUrl(url) + query,
+          options: Options(headers: obterHeaders()));
 
-    if (response != null && response.data.isNotEmpty) return response.data;
+      if (response != null && response.data.isNotEmpty) return response.data;
+    } catch (e) {
+      Modular.to.pushReplacementNamed('/sem-conexao');
+    }
   }
 
   post(String url, Map body) async {
-    var response = await dio.post(getApiUrl(url), data: body);
+    try {
+      var response = await dio.post(getApiUrl(url), data: body);
 
-    if (response != null) return response;
+      if (response != null) return response;
+    } catch (e) {
+      Modular.to.pushReplacementNamed('/sem-conexao');
+    }
   }
 
   put(String url, Map body, String id) async {
-    var urlFinal = getApiUrl(url) + id;
+    try {
+      var urlFinal = getApiUrl(url) + id;
 
-    var response = await dio.put(urlFinal, data: body, options: Options(headers: obterHeaders()));
+      var response = await dio.put(urlFinal,
+          data: body, options: Options(headers: obterHeaders()));
 
-    if (response != null && response.data.isNotEmpty) 
-        return response.data;
+      if (response != null && response.data.isNotEmpty) return response.data;
+    } catch (e) {
+      Modular.to.pushReplacementNamed('/sem-conexao');
+    }
   }
 
   delete(String url, String id) async {
-    var urlFinal = getApiUrl(url) + id;
+    try {
+      var urlFinal = getApiUrl(url) + id;
 
-    var response =  await dio.delete(urlFinal, options: Options(headers: obterHeaders()));
+      var response =
+          await dio.delete(urlFinal, options: Options(headers: obterHeaders()));
 
-    if (response != null && response.data.isNotEmpty) 
-        return response.data;
+      if (response != null && response.data.isNotEmpty) return response.data;
+    } catch (e) {
+      Modular.to.pushReplacementNamed('/sem-conexao');
+    }
   }
 
   // getSessionPagSeguro() async {

@@ -11,6 +11,7 @@ import 'package:payandbuyapp/app/widgets/menu.dart';
 
 import 'custom-bottom-nav-bar.dart';
 import 'custom-text.dart';
+import 'ui/base-widget.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -24,25 +25,29 @@ class _HomeWidgetState extends ModularState<HomeWidget, HomeController> {
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 2,
-        child: Scaffold(
-            key: _scaffoldKey,
-            appBar: buildAppBar(),
-            drawer: Menu(),
-            bottomNavigationBar: BottomNavBarWidget(),
-            body: Observer(builder: (_) {
-              return IndexedStack(
-                index: controller.currentIndex,
-                children: <Widget>[
-                  HomeView(),
-                  CategoriaListar(
-                    listar: true,
-                  ),
-                  FavoritosView(),
-                  CarrinhoView(),
-                  PerfilView()
-                ],
-              );
-            })));
+        child: BaseWidget(builder: (context, sizingInformation) {
+          return Scaffold(
+              key: _scaffoldKey,
+              appBar: buildAppBar(),
+              drawer: Menu(),
+              bottomNavigationBar: BottomNavBarWidget(),
+              body: Observer(builder: (_) {
+                return IndexedStack(
+                  index: controller.currentIndex,
+                  children: <Widget>[
+                    HomeView(
+                      sizingInformation: sizingInformation,
+                    ),
+                    CategoriaListar(
+                      listar: true,
+                    ),
+                    FavoritosView(),
+                    CarrinhoView(),
+                    PerfilView()
+                  ],
+                );
+              }));
+        }));
   }
 
   Widget buildAppBar() {
