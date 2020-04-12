@@ -15,15 +15,11 @@ class LoginService {
 
     Map loginData = {'email': email, 'senha': senha};
 
-    var jsonResponse;
-
-    Response response = await apiService.post('/logar', loginData);
+    var response = await apiService.post('/logar', loginData);
 
     if (response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-
-      if (jsonResponse != null) {
-        sharedPreferences.setString("token", jsonResponse['token']);
+      if (response.data != null) {
+        sharedPreferences.setString("token", response.data['token']);
 
         Modular.to.pushReplacementNamed('/home');
       }

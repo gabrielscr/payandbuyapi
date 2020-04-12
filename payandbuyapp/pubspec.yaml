@@ -29,7 +29,8 @@ dependencies:
   google_fonts:
   build_runner:
   shared_preferences:
-  flutter_icons:  
+  flutter_icons:
+  dio:  
   flutter:
     sdk: flutter
 

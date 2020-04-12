@@ -1,37 +1,35 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'dart:convert';
 
 class Api {
-  final String api = 'http://192.168.15.13:3000';
+  final String api = '192.168.15.13:3000';
+  Dio dio = new Dio();
 
   get(String url, Map query) async {
-    var response =
-        await http.get(api + url, headers: {'Accept': 'application/json'});
+    var response = await dio.get(getApiUrl(url),
+        options: Options(headers: obterHeaders()));
 
-    if (response != null && response.body.isNotEmpty)
-      return json.decode(response.body);
+    if (response != null && response.data.isNotEmpty) return response.data;
   }
 
   post(String url, Map body) async {
-    var response = await http.post(api + url,
-        body: json.encode(body), headers: {'Accept': 'application/json'});
+    var response = await dio.post(getApiUrl(url), data: body);
 
-    return response;
+    if (response != null) return response;
   }
 
   put(String url, Map body) async {
-    var response = await http.put(_getApiUrl(url),
-        body: jsonEncode(body), headers: obterHeaders());
+    var response = await dio.put(getApiUrl(url),
+        data: jsonEncode(body), options: Options(headers: obterHeaders()));
 
-    if (response != null && response.body.isNotEmpty)
-      return json.decode(response.body);
+    if (response != null && response.data.isNotEmpty) return response.data;
   }
 
   delete(String url, Map body) async {
-    var response = await http.delete(api + url, headers: obterHeaders());
+    var response = await dio.delete(getApiUrl(url),
+        options: Options(headers: obterHeaders()));
 
-    if (response != null && response.body.isNotEmpty)
-      return json.decode(response.body);
+    if (response != null && response.data.isNotEmpty) return response.data;
   }
 
   // getSessionPagSeguro() async {
@@ -56,24 +54,7 @@ class Api {
     return {'Accept': 'application/json'};
   }
 
-  // _getUrlQuery(Map query) {
-  //   var queryUrl = '';
-
-  //   for (var item in query.keys) {
-  //     if (item == null) continue;
-
-  //     if (queryUrl.indexOf('?') < 0)
-  //       queryUrl += '?';
-  //     else
-  //       queryUrl += '&';
-
-  //     queryUrl += item + '=' + query[item].toString();
-  //   }
-
-  //   return queryUrl;
-  // }
-
-  String _getApiUrl(String url) {
-    return Uri.decodeFull(Uri.http(api, url).toString());
+  String getApiUrl(String url) {
+    return Uri.encodeFull(Uri.http(api, url).toString());
   }
 }

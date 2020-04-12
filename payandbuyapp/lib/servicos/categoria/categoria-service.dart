@@ -7,7 +7,9 @@ class CategoriaService {
   final apiService = Api();
 
   inserir(Map body) async {
-    Response response = await apiService.post('/categoria/inserir', body);
+    var response = await apiService.post('/categoria/inserir', body);
+
+    return response;
   }
 
   editar(Map body) async {
