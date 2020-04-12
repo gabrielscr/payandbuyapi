@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'dart:convert';
 
 class Api {
   final String api = '192.168.15.13:3000';

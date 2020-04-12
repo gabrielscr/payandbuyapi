@@ -28,7 +28,9 @@ class _HomeViewState extends State<HomeView> {
                 flex: 1,
                 child: Container(
                   height: 90,
-                  child: CategoriaListar(),
+                  child: CategoriaListar(
+                    listar: false,
+                  ),
                 ),
               ),
               Expanded(flex: 2, child: Container(color: Colors.black)),

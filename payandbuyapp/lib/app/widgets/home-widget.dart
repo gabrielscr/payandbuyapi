@@ -34,7 +34,9 @@ class _HomeWidgetState extends ModularState<HomeWidget, HomeController> {
                 index: controller.currentIndex,
                 children: <Widget>[
                   HomeView(),
-                  CategoriaListar(),
+                  CategoriaListar(
+                    listar: true,
+                  ),
                   FavoritosView(),
                   CarrinhoView(),
                   PerfilView()

@@ -10,6 +10,10 @@ import 'package:payandbuyapp/app/widgets/loader.dart';
 import 'package:payandbuyapp/domain/categoria.dart';
 
 class CategoriaListar extends StatefulWidget {
+  final bool listar;
+
+  const CategoriaListar({Key key, @required this.listar}) : super(key: key);
+
   @override
   _CategoriaListarState createState() => _CategoriaListarState();
 }
@@ -34,18 +38,21 @@ class _CategoriaListarState
             text: 'Erro ao carregar categorias, reinicie o aplicativo.',
             fontSize: 16);
 
-      return Container(
-        child: GridView.count(
-          scrollDirection: Axis.horizontal,
-          crossAxisCount: 1,
-          childAspectRatio: 1.3,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 8,
-          children: List.generate(categorias?.value?.length, (index) {
-            return gridCategorias(categorias.value[index]);
-          }),
-        ),
-      );
+      if (widget.listar)
+        return listCategorias(categorias);
+      else
+        return Container(
+          child: GridView.count(
+            scrollDirection: Axis.horizontal,
+            crossAxisCount: 1,
+            childAspectRatio: 1.3,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 8,
+            children: List.generate(categorias?.value?.length, (index) {
+              return gridCategorias(categorias.value[index]);
+            }),
+          ),
+        );
     });
   }
 
@@ -64,7 +71,8 @@ class _CategoriaListarState
                     CachedNetworkImage(
                       width: MediaQuery.of(context).size.width,
                       height: 100,
-                      imageUrl: categorias.value[index].foto,
+                      imageUrl: categorias.value[index].foto ??
+                          "https://tshirtinbox.com.br/wp-content/uploads/2020/01/Hero-Banner-Placeholder-Dark-1024x480.png",
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                       placeholder: (context, url) => Center(child: Loader()),

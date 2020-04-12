@@ -16,7 +16,7 @@ class _MenuState extends State<MenuAdmin> {
         children: <Widget>[
           UserAccountsDrawerHeader(accountName: null, accountEmail: null),
           menuItem("Categorias", Icon(Ionicons.ios_list), "/categorias-admin"),
-          menuItem("Produtos", Icon(Ionicons.ios_cart), "/admin-produtos"),
+          menuItem("Produtos", Icon(Ionicons.ios_cart), "/produtos-admin"),
           menuItem("Pedidos", Icon(Ionicons.ios_checkmark), "/admin-pedidos"),
         ],
       ),
