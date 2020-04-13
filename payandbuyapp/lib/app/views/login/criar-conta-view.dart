@@ -46,28 +46,28 @@ class _LoginState extends ModularState<CriarContaView, LoginController> {
                                   builder: (_) {
                                     return buildTextFormField(
                                         "Nome",
-                                        controller.changeEmail,
+                                        controller.changeNome,
                                         false,
                                         Icon(
                                           Ionicons.ios_person,
                                           color: Colors.grey,
                                         ),
-                                        TextInputType.emailAddress,
-                                        controller.validateEmail);
+                                        TextInputType.text,
+                                        controller.validateNome);
                                   },
                                 ),
                                 Observer(
                                   builder: (_) {
                                     return buildTextFormField(
                                         "CPF",
-                                        controller.changeEmail,
+                                        controller.changeCpf,
                                         false,
                                         Icon(
                                           Ionicons.ios_document,
                                           color: Colors.grey,
                                         ),
-                                        TextInputType.emailAddress,
-                                        controller.validateEmail);
+                                        TextInputType.text,
+                                        controller.validateCpf);
                                   },
                                 ),
                                 Observer(
@@ -90,7 +90,8 @@ class _LoginState extends ModularState<CriarContaView, LoginController> {
                                         "Senha",
                                         controller.changeSenha,
                                         true,
-                                        Icon(Ionicons.ios_lock, color: Colors.grey),
+                                        Icon(Ionicons.ios_lock,
+                                            color: Colors.grey),
                                         TextInputType.text,
                                         controller.validatePassword);
                                   },
@@ -120,7 +121,7 @@ class _LoginState extends ModularState<CriarContaView, LoginController> {
                                   ),
                                 ),
                                 onPressed: () async {
-                                  await controller.logar();
+                                  await controller.criarConta();
                                 }),
                           ),
                           SizedBox(

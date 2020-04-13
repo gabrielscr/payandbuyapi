@@ -9,7 +9,10 @@ abstract class _LoginControllerBase with Store {
 
   @computed
   bool get isValid {
-    return validateEmail() == null && validatePassword() == null;
+    return validateEmail() == null &&
+        validatePassword() == null &&
+        validateCpf() == null &&
+        validateNome() == null;
   }
 
   @observable
@@ -25,6 +28,18 @@ abstract class _LoginControllerBase with Store {
   changeSenha(String novaSenha) => senha = novaSenha;
 
   @observable
+  String nome = "";
+
+  @action
+  changeNome(String novoNome) => nome = novoNome;
+
+  @observable
+  String cpf = "";
+
+  @action
+  changeCpf(String novoCpf) => cpf = novoCpf;
+
+  @observable
   bool loading = false;
 
   String validateEmail() {
@@ -35,6 +50,20 @@ abstract class _LoginControllerBase with Store {
       return 'Por favor, digite um e-mail válido.';
     else
       return null;
+  }
+
+  String validateNome() {
+    if (this.nome.length > 3)
+      return null;
+    else
+      return "Preencha com o seu nome";
+  }
+
+  String validateCpf() {
+    if (this.cpf.length >= 11)
+      return null;
+    else
+      return "Preencha com o seu CPF";
   }
 
   String validatePassword() {
@@ -64,7 +93,8 @@ abstract class _LoginControllerBase with Store {
 
     loading = true;
     try {
-      await loginService.criarConta(this.email, this.senha);
+      await loginService.criarConta(
+          this.nome, this.cpf, this.email, this.senha);
     } catch (e) {
       loading = false;
     }

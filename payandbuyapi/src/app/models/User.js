@@ -2,7 +2,12 @@ import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 
 const UserSchema = new Schema({
-    username: {
+    nome: {
+        required: true,
+        type: String
+    },
+    cpf: {
+        required: true,
         type: String
     },
     email: {
@@ -13,14 +18,13 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    createdAt: {
+    criadoEm: {
         type: Date,
         default: Date.now
     }
 });
 
 UserSchema.methods.encryptPassword = async (password) => {
-    console.log(password);
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
 };

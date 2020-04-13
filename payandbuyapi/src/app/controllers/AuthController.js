@@ -5,13 +5,14 @@ class AuthController {
 
     async signup(req, res) {
         try {
-            const { username, email, senha } = req.body;
+            const { nome, cpf, email, senha } = req.body;
 
             console.log("body");
             console.log(req.body);
 
             const user = new User({
-                username,
+                nome,
+                cpf,
                 email,
                 senha
             });

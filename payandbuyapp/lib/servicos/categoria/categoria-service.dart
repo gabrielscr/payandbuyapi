@@ -26,11 +26,12 @@ class CategoriaService {
     var response = await apiService.list('/categorias', query);
     List<Categoria> lista = [];
 
-    for (var json in (response) as List) {
-      Categoria categoria = Categoria.fromJson(json);
+    if (response != null)
+      for (var json in (response) as List) {
+        Categoria categoria = Categoria.fromJson(json);
 
-      lista.add(categoria);
-    }
+        lista.add(categoria);
+      }
 
     return lista;
   }

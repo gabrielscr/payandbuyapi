@@ -29,13 +29,13 @@ class LoginService {
     }
   }
 
-  criarConta(String email, String senha) async {
-    Map loginData = {'email': email, 'senha': senha};
+  criarConta(String nome, String cpf, String email, String senha) async {
+    Map loginData = {'nome': nome, 'cpf': cpf, 'email': email, 'senha': senha};
 
     var response = await apiService.post('/criarConta', loginData);
 
     if (response.statusCode == 200) {
-      json.decode(response.body);
+      json.decode(response.data);
       Modular.to.showDialog(
           child: CustomAlert(
         titulo: "Obrigado!",
