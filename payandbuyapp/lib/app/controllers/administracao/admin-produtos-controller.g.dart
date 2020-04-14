@@ -32,6 +32,23 @@ mixin _$AdminProdutosController on _AdminProdutosControllerBase, Store {
     }, _$produtosAtom, name: '${_$produtosAtom.name}_set');
   }
 
+  final _$favoritoAtom = Atom(name: '_AdminProdutosControllerBase.favorito');
+
+  @override
+  bool get favorito {
+    _$favoritoAtom.context.enforceReadPolicy(_$favoritoAtom);
+    _$favoritoAtom.reportObserved();
+    return super.favorito;
+  }
+
+  @override
+  set favorito(bool value) {
+    _$favoritoAtom.context.conditionallyRunInAction(() {
+      super.favorito = value;
+      _$favoritoAtom.reportChanged();
+    }, _$favoritoAtom, name: '${_$favoritoAtom.name}_set');
+  }
+
   final _$produtoAtom = Atom(name: '_AdminProdutosControllerBase.produto');
 
   @override
@@ -78,6 +95,14 @@ mixin _$AdminProdutosController on _AdminProdutosControllerBase, Store {
         .run(() => super.excluirProduto(produtoId));
   }
 
+  final _$handleFavoritoChangeAsyncAction = AsyncAction('handleFavoritoChange');
+
+  @override
+  Future handleFavoritoChange(String productId) {
+    return _$handleFavoritoChangeAsyncAction
+        .run(() => super.handleFavoritoChange(productId));
+  }
+
   final _$_AdminProdutosControllerBaseActionController =
       ActionController(name: '_AdminProdutosControllerBase');
 
@@ -106,7 +131,7 @@ mixin _$AdminProdutosController on _AdminProdutosControllerBase, Store {
   @override
   String toString() {
     final string =
-        'produtos: ${produtos.toString()},produto: ${produto.toString()},isValid: ${isValid.toString()}';
+        'produtos: ${produtos.toString()},favorito: ${favorito.toString()},produto: ${produto.toString()},isValid: ${isValid.toString()}';
     return '{$string}';
   }
 }

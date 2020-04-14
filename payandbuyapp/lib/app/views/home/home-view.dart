@@ -58,6 +58,9 @@ class _HomeViewState extends State<HomeView> {
   }
 
   obterValorPercentual(String valorOriginal, String valorPromocional) {
+    valorOriginal = valorOriginal.replaceAll(',', '.');
+    valorPromocional = valorPromocional.replaceAll(',', '.');
+
     var diferenca =
         double.parse(valorOriginal) - double.parse(valorPromocional);
 
@@ -89,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
             buildBanner(
                 "https://i.pinimg.com/originals/bc/71/a3/bc71a36db443a525485f737ec33566f4.png"),
             buildBanner(
-                "https://www.emlishop.com.br/wp-content/uploads/2019/01/Games-Banner-1140x400.png"),
+                "https://cdn02.nintendo-europe.com/media/images/08_content_images/systems_5/nintendo_switch_3/not_approved_1/NSwitchTop.png"),
             buildBanner(
                 "https://image.freepik.com/vetores-gratis/banner-de-moda-promocao_1188-223.jpg")
           ],
@@ -115,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
     return FlatButton(
       padding: EdgeInsets.all(1),
       onPressed: () {
-        Modular.to.pushNamed('produto-detalhe', arguments: produto);
+        Modular.to.popAndPushNamed('produto-detalhe', arguments: produto.id);
       },
       child: Column(
         children: <Widget>[

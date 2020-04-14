@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:payandbuyapp/app/controllers/home-contorller.dart';
+import 'package:payandbuyapp/app/controllers/home-controller.dart';
 import 'package:payandbuyapp/app/views/carrinho/carrinho-view.dart';
 import 'package:payandbuyapp/app/views/categorias/categorias-view.dart';
 import 'package:payandbuyapp/app/views/favoritos/favoritos-view.dart';

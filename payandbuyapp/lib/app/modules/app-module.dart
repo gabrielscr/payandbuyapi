@@ -3,7 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/controllers/administracao/admin-categorias-controller.dart';
 import 'package:payandbuyapp/app/controllers/administracao/admin-produtos-controller.dart';
 import 'package:payandbuyapp/app/controllers/app-controller.dart';
-import 'package:payandbuyapp/app/controllers/home-contorller.dart';
+import 'package:payandbuyapp/app/controllers/home-controller.dart';
 import 'package:payandbuyapp/app/controllers/login-controller.dart';
 import 'package:payandbuyapp/app/views/administracao/admin-home-view.dart';
 import 'package:payandbuyapp/app/views/administracao/categorias/admin-categorias-inserir-editar-view.dart';
@@ -13,6 +13,7 @@ import 'package:payandbuyapp/app/views/administracao/produtos/admin-produtos-vie
 import 'package:payandbuyapp/app/views/login/criar-conta-view.dart';
 import 'package:payandbuyapp/app/views/login/esqueceu-senha-view.dart';
 import 'package:payandbuyapp/app/views/login/login-view.dart';
+import 'package:payandbuyapp/app/views/produto/produto-detalhe-view.dart';
 import 'package:payandbuyapp/app/widgets/app-widget.dart';
 import 'package:payandbuyapp/app/widgets/home-widget.dart';
 import 'package:payandbuyapp/app/widgets/sem-conexao-widget.dart';
@@ -52,6 +53,10 @@ class AppModule extends MainModule {
         Router('/produtos-admin', child: (_, args) => AdminProdutosView()),
         Router('/produtos-admin-inserir-editar',
             child: (_, args) => AdminProdutosInserirEditar(
+                  produtoId: args.data,
+                )),
+        Router('/produto-detalhe',
+            child: (_, args) => ProdutoDetalheView(
                   produtoId: args.data,
                 )),
       ];

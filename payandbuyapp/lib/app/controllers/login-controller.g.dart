@@ -49,6 +49,40 @@ mixin _$LoginController on _LoginControllerBase, Store {
     }, _$senhaAtom, name: '${_$senhaAtom.name}_set');
   }
 
+  final _$nomeAtom = Atom(name: '_LoginControllerBase.nome');
+
+  @override
+  String get nome {
+    _$nomeAtom.context.enforceReadPolicy(_$nomeAtom);
+    _$nomeAtom.reportObserved();
+    return super.nome;
+  }
+
+  @override
+  set nome(String value) {
+    _$nomeAtom.context.conditionallyRunInAction(() {
+      super.nome = value;
+      _$nomeAtom.reportChanged();
+    }, _$nomeAtom, name: '${_$nomeAtom.name}_set');
+  }
+
+  final _$cpfAtom = Atom(name: '_LoginControllerBase.cpf');
+
+  @override
+  String get cpf {
+    _$cpfAtom.context.enforceReadPolicy(_$cpfAtom);
+    _$cpfAtom.reportObserved();
+    return super.cpf;
+  }
+
+  @override
+  set cpf(String value) {
+    _$cpfAtom.context.conditionallyRunInAction(() {
+      super.cpf = value;
+      _$cpfAtom.reportChanged();
+    }, _$cpfAtom, name: '${_$cpfAtom.name}_set');
+  }
+
   final _$loadingAtom = Atom(name: '_LoginControllerBase.loading');
 
   @override
@@ -104,6 +138,26 @@ mixin _$LoginController on _LoginControllerBase, Store {
   }
 
   @override
+  dynamic changeNome(String novoNome) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    try {
+      return super.changeNome(novoNome);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeCpf(String novoCpf) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
+    try {
+      return super.changeCpf(novoCpf);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic logoff() {
     final _$actionInfo = _$_LoginControllerBaseActionController.startAction();
     try {
@@ -116,7 +170,7 @@ mixin _$LoginController on _LoginControllerBase, Store {
   @override
   String toString() {
     final string =
-        'email: ${email.toString()},senha: ${senha.toString()},loading: ${loading.toString()},isValid: ${isValid.toString()}';
+        'email: ${email.toString()},senha: ${senha.toString()},nome: ${nome.toString()},cpf: ${cpf.toString()},loading: ${loading.toString()},isValid: ${isValid.toString()}';
     return '{$string}';
   }
 }

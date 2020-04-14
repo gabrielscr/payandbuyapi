@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const UserSchema = new Schema({
+const PerfilSchema = new Schema({
     nome: {
         required: true,
         type: String
@@ -10,50 +10,52 @@ const UserSchema = new Schema({
     },
     cep: {
         type: String,
-        maxlength: 8
+        maxlength: 8,
+        required: true
     },
     cidade: {
-        type: String
+        type: String,
+        required: true
     },
     uf: {
         type: String,
-        maxlength: 2
+        maxlength: 2,
+        required: true
     },
     logradouro: {
-        type: String
+        type: String,
+        required: true
     },
     numero: {
-        type: String
+        type: String,
+        required: true
     },
     complemento: {
-        type: String
+        type: String,
+        required: true
     },
     bairro: {
-        type: String
-    },
-    ddd: {
         type: String,
-        maxlength: 2
-    },
-    celular: {
-        type: String,
-        maxlength: 9
-    },
-    dataNascimento: {
-        type: Date,
-        default: Date.now
-    },
-    cpf: {
-        required: true,
-        type: String
+        required: true
     },
     email: {
         type: String,
         required: true
     },
-    senha: {
+    ddd: {
         type: String,
-        required: true
+        required: true,
+        maxlength: 2
+    },
+    celular: {
+        type: String,
+        required: true,
+        maxlength: 9
+    },
+    dataNascimento: {
+        type: Date,
+        required: true,
+        default: Date.now
     },
     criadoEm: {
         type: Date,
@@ -61,4 +63,4 @@ const UserSchema = new Schema({
     }
 });
 
-export default model("Usuario", UserSchema);
+export default model("Perfil", PerfilSchema);

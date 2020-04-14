@@ -79,25 +79,14 @@ abstract class _LoginControllerBase with Store {
   Future logar() async {
     if (this.email.isEmpty || this.senha.isEmpty) return;
 
-    loading = true;
-    try {
-      await loginService.logar(this.email, this.senha);
-    } catch (e) {
-      loading = false;
-    }
+    await loginService.logar(this.email, this.senha);
   }
 
   @action
   Future criarConta() async {
     if (this.email.isEmpty || this.senha.isEmpty) return;
 
-    loading = true;
-    try {
-      await loginService.criarConta(
-          this.nome, this.cpf, this.email, this.senha);
-    } catch (e) {
-      loading = false;
-    }
+    await loginService.criarConta(this.nome, this.cpf, this.email, this.senha);
   }
 
   @action

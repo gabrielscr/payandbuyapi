@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:payandbuyapp/app/widgets/custom-alert.dart';
 
 class Api {
   final String api = '192.168.15.13:3000';
@@ -14,7 +15,12 @@ class Api {
 
       if (response != null && response.data.isNotEmpty) return response.data;
     } catch (e) {
-      Modular.to.pushReplacementNamed('/sem-conexao');
+      if (e.response.data != null)
+        Modular.to.showDialog(
+            child: CustomAlert(
+                msg: e.response.data, titulo: 'Ops, ocorreu um erro'));
+      else
+        Modular.to.pushReplacementNamed('/sem-conexao');
     }
   }
 
@@ -25,7 +31,12 @@ class Api {
 
       if (response != null && response.data.isNotEmpty) return response.data;
     } catch (e) {
-      Modular.to.pushReplacementNamed('/sem-conexao');
+      if (e.response.data != null)
+        Modular.to.showDialog(
+            child: CustomAlert(
+                msg: e.response.data, titulo: 'Ops, ocorreu um erro'));
+      else
+        Modular.to.pushReplacementNamed('/sem-conexao');
     }
   }
 
@@ -35,7 +46,12 @@ class Api {
 
       if (response != null) return response;
     } catch (e) {
-      Modular.to.pushReplacementNamed('/sem-conexao');
+      if (e.response.data != null)
+        Modular.to.showDialog(
+            child: CustomAlert(
+                msg: e.response.data, titulo: 'Ops, ocorreu um erro'));
+      else
+        Modular.to.pushReplacementNamed('/sem-conexao');
     }
   }
 
@@ -48,7 +64,12 @@ class Api {
 
       if (response != null && response.data.isNotEmpty) return response.data;
     } catch (e) {
-      Modular.to.pushReplacementNamed('/sem-conexao');
+      if (e.response.data != null)
+        Modular.to.showDialog(
+            child: CustomAlert(
+                msg: e.response.data, titulo: 'Ops, ocorreu um erro'));
+      else
+        Modular.to.pushReplacementNamed('/sem-conexao');
     }
   }
 
@@ -61,7 +82,12 @@ class Api {
 
       if (response != null && response.data.isNotEmpty) return response.data;
     } catch (e) {
-      Modular.to.pushReplacementNamed('/sem-conexao');
+      if (e.response.data != null)
+        Modular.to.showDialog(
+            child: CustomAlert(
+                msg: e.response.data, titulo: 'Ops, ocorreu um erro'));
+      else
+        Modular.to.pushReplacementNamed('/sem-conexao');
     }
   }
 

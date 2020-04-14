@@ -1,14 +1,12 @@
 import User from "../models/User";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 class AuthController {
 
     async signup(req, res) {
         try {
             const { nome, cpf, email, senha } = req.body;
-
-            console.log("body");
-            console.log(req.body);
 
             const user = new User({
                 nome,
@@ -19,11 +17,18 @@ class AuthController {
 
             const verificarSeExiste = await User.findOne({ email: req.body.email });
 
-            if (verificarSeExiste) {
-                return res.status(500).send("Usuário já existe.");
+            const verificarSeExisteCpf = await User.findOne({ cpf: req.body.cpf });
+
+            if (verificarSeExisteCpf) {
+                return res.status(500).send("Usuário já cadastrado com esse CPF.");
             }
 
-            user.senha = await user.encryptPassword(senha);
+            if (verificarSeExiste) {
+                return res.status(500).send("Usuário já cadastrado com esse e-mail.");
+            }
+
+            const salt = await bcrypt.genSalt(10);
+            user.senha = await bcrypt.hash(senha, salt);
 
             await user.save();
 
@@ -34,27 +39,31 @@ class AuthController {
             res.json({ auth: true, token });
 
         } catch (e) {
-            console.log(e)
+            console.log(e);
             res.status(500).send('Ocorreu um problema.');
         }
     }
 
     async signin(req, res) {
         try {
-            const user = await User.findOne({ email: req.body.email })
+            let user = await User.findOne({ email: req.body.email })
+
             if (!user) {
                 return res.status(404).send('O e-mail não existe.');
             }
-            const validPassword = await user.validatePassword(req.body.senha, user.senha);
+
+            let validPassword = await bcrypt.compare(req.body.senha, user.senha);
+
             if (!validPassword) {
-                return res.status(401).send({ auth: false, token: null });
+                return res.status(401).send("Sua senha é inválida.");
             }
-            const token = jwt.sign({ id: user._id }, "mysecrettoken", {
+
+            let token = jwt.sign({ id: user._id }, "mysecrettoken", {
                 expiresIn: '24h'
             });
             res.status(200).json({ auth: true, token });
         } catch (e) {
-            console.log(e)
+
             res.status(500).send('Ocorreu um problema ao se logar.');
         }
     }

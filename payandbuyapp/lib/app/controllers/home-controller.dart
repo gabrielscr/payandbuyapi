@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-part 'home-contorller.g.dart';
+part 'home-controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 

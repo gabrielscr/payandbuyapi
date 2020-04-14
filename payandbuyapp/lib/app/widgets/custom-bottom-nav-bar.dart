@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:payandbuyapp/app/controllers/home-contorller.dart';
+import 'package:payandbuyapp/app/controllers/home-controller.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
   @override

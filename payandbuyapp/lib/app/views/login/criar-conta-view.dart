@@ -3,7 +3,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/controllers/login-controller.dart';
-import 'package:payandbuyapp/app/widgets/loader.dart';
 
 class CriarContaView extends StatefulWidget {
   @override
@@ -110,14 +109,12 @@ class _LoginState extends ModularState<CriarContaView, LoginController> {
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.grey),
                                   child: Center(
-                                    child: controller.loading
-                                        ? Loader()
-                                        : Text(
-                                            "CRIAR CONTA",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                    child: Text(
+                                      "CRIAR CONTA",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                                 onPressed: () async {

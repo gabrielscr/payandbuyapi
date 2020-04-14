@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/widgets/custom-alert.dart';
 import 'package:payandbuyapp/servicos/api/api-service.dart';
@@ -34,20 +32,12 @@ class LoginService {
 
     var response = await apiService.post('/criarConta', loginData);
 
-    if (response.statusCode == 200) {
-      json.decode(response.data);
+    if (response != null && response.statusCode == 200)
       Modular.to.showDialog(
           child: CustomAlert(
         titulo: "Obrigado!",
         msg: "Conta criada com sucesso.",
       ));
-    } else {
-      Modular.to.showDialog(
-          child: CustomAlert(
-        titulo: "Ocorreu um erro",
-        msg: response.body,
-      ));
-    }
   }
 
   deslogar() async {
