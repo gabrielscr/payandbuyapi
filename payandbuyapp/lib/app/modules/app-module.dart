@@ -3,8 +3,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:payandbuyapp/app/controllers/administracao/admin-categorias-controller.dart';
 import 'package:payandbuyapp/app/controllers/administracao/admin-produtos-controller.dart';
 import 'package:payandbuyapp/app/controllers/app-controller.dart';
+import 'package:payandbuyapp/app/controllers/carrinho-controller.dart';
 import 'package:payandbuyapp/app/controllers/home-controller.dart';
 import 'package:payandbuyapp/app/controllers/login-controller.dart';
+import 'package:payandbuyapp/app/controllers/usuario-controller.dart';
 import 'package:payandbuyapp/app/views/administracao/admin-home-view.dart';
 import 'package:payandbuyapp/app/views/administracao/categorias/admin-categorias-inserir-editar-view.dart';
 import 'package:payandbuyapp/app/views/administracao/categorias/admin-categorias-view.dart';
@@ -28,7 +30,9 @@ class AppModule extends MainModule {
         Bind((inject) => AdminCategoriasController()),
         Bind<Api>((i) => Api()),
         Bind((inject) => HomeController()),
-        Bind((inject) => AdminProdutosController())
+        Bind((inject) => AdminProdutosController()),
+        Bind((inject) => UsuarioController()),
+        Bind((inject) => CarrinhoController())
       ];
 
   @override

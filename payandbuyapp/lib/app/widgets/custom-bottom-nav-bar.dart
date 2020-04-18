@@ -1,7 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:payandbuyapp/app/controllers/carrinho-controller.dart';
 import 'package:payandbuyapp/app/controllers/home-controller.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
@@ -11,7 +13,7 @@ class BottomNavBarWidget extends StatefulWidget {
 
 class _BottomNavBarWidgetState
     extends ModularState<BottomNavBarWidget, HomeController> {
-  // var carrinhoController = Modular.get<CarrinhoController>();
+  var carrinhoController = Modular.get<CarrinhoController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +27,19 @@ class _BottomNavBarWidgetState
         buildBottomNavigationBarItem(Icon(Ionicons.ios_home)),
         buildBottomNavigationBarItem(Icon(Ionicons.ios_list)),
         buildBottomNavigationBarItem(Icon(Ionicons.ios_heart_empty)),
-        buildBottomNavigationBarItem(Icon(Ionicons.ios_cart)),
-        // buildBottomNavigationBarItem(
-        //   carrinhoController.itens.length > 0
-        //       ? Badge(
-        //           animationType: BadgeAnimationType.slide,
-        //           shape: BadgeShape.circle,
-        //           borderRadius: 100,
-        //           child: Icon(Ionicons.ios_cart),
-        //           badgeContent: Observer(
-        //               builder: (_) => Text('${carrinhoController.itens.length}',
-        //                   style: TextStyle(color: Colors.white))),
-        //         )
-        //       : Icon(Ionicons.ios_cart),
-        // ),
+        buildBottomNavigationBarItem(
+          carrinhoController.itens.length > 0
+              ? Badge(
+                  animationType: BadgeAnimationType.slide,
+                  shape: BadgeShape.circle,
+                  borderRadius: 100,
+                  child: Icon(Ionicons.ios_cart),
+                  badgeContent: Observer(
+                      builder: (_) => Text('${carrinhoController.itens.length}',
+                          style: TextStyle(color: Colors.white))),
+                )
+              : Icon(Ionicons.ios_cart),
+        ),
         buildBottomNavigationBarItem(Icon(Ionicons.ios_person))
       ];
       return BottomNavigationBar(

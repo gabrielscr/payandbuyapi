@@ -18,6 +18,8 @@ routes.delete("/tasks/:id", TaskController.destroy);
 routes.post("/logar", AuthController.signin);
 routes.post("/criarConta", AuthController.signup);
 routes.get("/logout", AuthController.logout);
+routes.get("/usuario/obter/:id", AuthController.obter);
+routes.put("/usuario/editar/:id", AuthController.editar);
 
 /* Categorias */
 routes.get("/categorias", CategoriaController.listar);

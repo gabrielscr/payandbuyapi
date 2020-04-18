@@ -61,7 +61,7 @@ class AuthController {
             let token = jwt.sign({ id: user._id }, "mysecrettoken", {
                 expiresIn: '24h'
             });
-            res.status(200).json({ auth: true, token });
+            res.status(200).json({ auth: true, token, userId: user._id });
         } catch (e) {
 
             res.status(500).send('Ocorreu um problema ao se logar.');
@@ -70,6 +70,24 @@ class AuthController {
 
     logout(_req, res) {
         res.status(200).send({ auth: false, token: null });
+    }
+
+    async editar(req, res) {
+        const { id } = req.params;
+        const { body } = req;
+
+        const usuario = await User.findByIdAndUpdate(id, body, {
+            new: true
+        });
+
+        return res.json(usuario);
+    }
+
+    async obter(req, res) {
+        const { id } = req.params;
+        const usuario = await User.findById(id);
+
+        return res.json(usuario);
     }
 }
 

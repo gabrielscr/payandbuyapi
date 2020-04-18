@@ -32,6 +32,40 @@ mixin _$AdminProdutosController on _AdminProdutosControllerBase, Store {
     }, _$produtosAtom, name: '${_$produtosAtom.name}_set');
   }
 
+  final _$favoritosAtom = Atom(name: '_AdminProdutosControllerBase.favoritos');
+
+  @override
+  List<Favorito> get favoritos {
+    _$favoritosAtom.context.enforceReadPolicy(_$favoritosAtom);
+    _$favoritosAtom.reportObserved();
+    return super.favoritos;
+  }
+
+  @override
+  set favoritos(List<Favorito> value) {
+    _$favoritosAtom.context.conditionallyRunInAction(() {
+      super.favoritos = value;
+      _$favoritosAtom.reportChanged();
+    }, _$favoritosAtom, name: '${_$favoritosAtom.name}_set');
+  }
+
+  final _$loadingAtom = Atom(name: '_AdminProdutosControllerBase.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
   final _$favoritoAtom = Atom(name: '_AdminProdutosControllerBase.favorito');
 
   @override
@@ -95,6 +129,37 @@ mixin _$AdminProdutosController on _AdminProdutosControllerBase, Store {
         .run(() => super.excluirProduto(produtoId));
   }
 
+  final _$checarSeFavoritoAsyncAction = AsyncAction('checarSeFavorito');
+
+  @override
+  Future checarSeFavorito(int produtoId) {
+    return _$checarSeFavoritoAsyncAction
+        .run(() => super.checarSeFavorito(produtoId));
+  }
+
+  final _$adicionarFavoritoAsyncAction = AsyncAction('adicionarFavorito');
+
+  @override
+  Future adicionarFavorito(String productId) {
+    return _$adicionarFavoritoAsyncAction
+        .run(() => super.adicionarFavorito(productId));
+  }
+
+  final _$removerFavoritoAsyncAction = AsyncAction('removerFavorito');
+
+  @override
+  Future removerFavorito(String produtoId) {
+    return _$removerFavoritoAsyncAction
+        .run(() => super.removerFavorito(produtoId));
+  }
+
+  final _$listarFavoritosAsyncAction = AsyncAction('listarFavoritos');
+
+  @override
+  Future listarFavoritos() {
+    return _$listarFavoritosAsyncAction.run(() => super.listarFavoritos());
+  }
+
   final _$handleFavoritoChangeAsyncAction = AsyncAction('handleFavoritoChange');
 
   @override
@@ -131,7 +196,7 @@ mixin _$AdminProdutosController on _AdminProdutosControllerBase, Store {
   @override
   String toString() {
     final string =
-        'produtos: ${produtos.toString()},favorito: ${favorito.toString()},produto: ${produto.toString()},isValid: ${isValid.toString()}';
+        'produtos: ${produtos.toString()},favoritos: ${favoritos.toString()},loading: ${loading.toString()},favorito: ${favorito.toString()},produto: ${produto.toString()},isValid: ${isValid.toString()}';
     return '{$string}';
   }
 }

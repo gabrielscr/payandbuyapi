@@ -40,8 +40,7 @@ const UserSchema = new Schema({
         maxlength: 9
     },
     dataNascimento: {
-        type: Date,
-        default: Date.now
+        type: String
     },
     cpf: {
         required: true,

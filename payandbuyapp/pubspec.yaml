@@ -32,6 +32,8 @@ dependencies:
   flutter_icons:
   dio:
   intl:
+  image_cropper:
+  via_cep:
   flutter:
     sdk: flutter
 

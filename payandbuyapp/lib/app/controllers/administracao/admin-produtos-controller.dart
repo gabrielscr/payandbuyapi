@@ -1,6 +1,8 @@
 import 'package:mobx/mobx.dart';
+import 'package:payandbuyapp/domain/favorito.dart';
 import 'package:payandbuyapp/domain/produto.dart';
 import 'package:payandbuyapp/servicos/produto/produto-service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'admin-produtos-controller.g.dart';
 
 class AdminProdutosController = _AdminProdutosControllerBase
@@ -11,6 +13,12 @@ abstract class _AdminProdutosControllerBase with Store {
 
   @observable
   ObservableFuture<List<Produto>> produtos;
+
+  @observable
+  List<Favorito> favoritos;
+
+  @observable
+  bool loading = false;
 
   @observable
   bool favorito = false;
@@ -62,42 +70,56 @@ abstract class _AdminProdutosControllerBase with Store {
     await listarProdutos();
   }
 
-  // @action
-  // checarSeFavorito(int productId) async {
-  //   var result = await produtoService
-  //       .obterFavorito('/Produto/ObterProdutoFavorito', {'Id': productId});
+  @action
+  checarSeFavorito(int produtoId) async {
+    var sharedPref = await SharedPreferences.getInstance();
+    const key = 'userId';
+    var userId = sharedPref.get(key);
 
-  //   if (result == null)
-  //     favorite = false;
-  //   else
-  //     favorite = true;
-  // }
+    var result =
+        await produtoService.obterFavorito({'Id': produtoId, 'UserId': userId});
 
-  // @action
-  // addFavorite(int productId) async {
-  //   await produtoService.addFavorito('Produto/AdicionarProdutoFavorito',
-  //       {'ProdutoId': productId, 'UserId': usuarioController.usuario.id});
+    if (result == null)
+      favorito = false;
+    else
+      favorito = true;
+  }
 
-  //   await listFavoriteProducts();
-  // }
+  @action
+  adicionarFavorito(String productId) async {
+    var sharedPref = await SharedPreferences.getInstance();
+    const key = 'userId';
+    var userId = sharedPref.get(key);
 
-  // @action
-  // removeFavorite(int productId) async {
-  //   await produtoService
-  //       .removerFavorito('Produto/RemoverProdutoFavorito', {'Id': productId});
+    await produtoService
+        .adicionarFavorito({'produtoId': productId, 'userId': userId});
 
-  //   await listFavoriteProducts();
-  // }
+    await listarFavoritos();
+  }
+
+  @action
+  removerFavorito(String produtoId) async {
+    await produtoService.excluirFavorito(produtoId);
+
+    await listarFavoritos();
+  }
+
+  @action
+  listarFavoritos() async {
+    loading = true;
+    favoritos = await produtoService.listarFavoritos({});
+    loading = false;
+  }
 
   @action
   handleFavoritoChange(String productId) async {
     favorito = !favorito;
 
-    // if (favorite)
-    //   await addFavorite(productId);
-    // else
-    //   await removeFavorite(productId);
+    if (favorito)
+      await adicionarFavorito(productId);
+    else
+      await removerFavorito(productId);
 
-    // await listFavoriteProducts();
+    await listarFavoritos();
   }
 }

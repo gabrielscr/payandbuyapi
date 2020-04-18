@@ -15,3 +15,5 @@ irParaPagina(String routeName) {
 voltarPagina(String routeName) {
   Modular.to.pushReplacementNamed(routeName);
 }
+
+T sum<T extends num>(T lhs, T rhs) => lhs + rhs;
